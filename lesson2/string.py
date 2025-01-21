@@ -96,7 +96,7 @@ def problem17():
 
 #18
 def problem18():
-    s = input("sentence: ")
-    print("Starts with: " + s.split()[0], "Ends with: " + s.split()[-1], sep = '\n')
+    s = input("sentence: ").split()
+    print("Starts with: " + s[0], "Ends with: " + s[-1], sep = '\n')
 
 problem18()

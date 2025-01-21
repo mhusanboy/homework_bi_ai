@@ -44,6 +44,13 @@ def problem6():
 
 #7
 def problem7():
-    a = int(input())
-    b = int(input())
+    a = int(input("number1: "))
+    b = int(input("number2: "))
     print(a + b > 50.8)
+
+
+
+#8
+def problem8():
+    a = int(input("number: "))
+    print(10 <= a <= 20)

@@ -1,6 +1,7 @@
 #1
 def problem1():
-    a
+    a = float(input())
+    print(round(a, 2))
 
 #2
 def problem2():

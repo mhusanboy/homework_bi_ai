@@ -83,4 +83,3 @@ def problem15():
     a = np.random.randint(0, 2, (5, 5))
     print("rowwise: ", a.sum(axis = 1))
     print("columnwise: ", a.sum(axis = 0))
-

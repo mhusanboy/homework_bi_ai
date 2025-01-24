@@ -1,0 +1,8 @@
+Word Count Report
+Total number of words: 69
+Top words:
+ut (3 times)
+in (3 times)
+dolore (2 times)
+dolor (2 times)
+voluptate (1 times)

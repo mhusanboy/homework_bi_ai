@@ -102,7 +102,7 @@ while True:
         print("Input the information for the new employee!")
         id = input("ID: ")
         name = input("Name: ")
-        pos = input("Positin: ")
+        pos = input("Position: ")
         sal = int(input("Salary: "))
         add_employee((id, name, pos, sal))
     elif opt == 2:
@@ -114,7 +114,7 @@ while True:
         id = input("Enter the id of the employee to update: ")
         print("Input the new information for this employee!")
         name = input("Name: ")
-        pos = input("Positin: ")
+        pos = input("Position: ")
         sal = int(input("Salary: "))
         update(id, (id, name, pos, sal))
     elif opt == 5:

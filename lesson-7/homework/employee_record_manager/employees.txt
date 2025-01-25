@@ -1,0 +1,2 @@
+1001, John Doe, AI specialist, 100000
+1111, Husanboy Mansuraliyev, AI senior, 120000

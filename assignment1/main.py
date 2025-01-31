@@ -59,12 +59,17 @@ def getDate(timestamp):
 
 def sendPdfsWithReply(folder):
     files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and f.endswith('.pdf')]
+    if not files:
+        sendMessage(admin_id, "No pdfs found.")
+        return
     
+    sendMessage(admin_id, "Sending has started.")
+
     for f in files:
         with open(csvfile, 'a', newline='') as cf:
             writer = csv.writer(cf, delimiter=';')
             file_size = os.path.getsize(folder + f) / 1024
-            
+
             status = 'Successful'
             date_sent = None
 
@@ -80,9 +85,11 @@ def sendPdfsWithReply(folder):
                 else:
                     date_sent = getDate(res['result']['date'])
 
-            writer.writerow([f, f"{file_size:.2f} KiB", status, date_sent])
+            writer.writerow([f, f"{file_size:.1f} KiB", status, date_sent])
     
     sendDocument(admin_id, csvfile, message='Log file for the current operations')
+    
+    os.remove(csvfile)
     
 
 
@@ -115,7 +122,6 @@ def run():
                     if m['from']['id'] == admin_id and m['text'] == '/start':
                         sendPdfsWithReply(folder)
                     offset = response['update_id'] + 1
-                    break
 
 
 run()

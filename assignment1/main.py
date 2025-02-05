@@ -11,8 +11,8 @@ import datetime
 current_dir = Path(__file__).resolve().parent
 
 #constants
-folder = '/Users/mrhusanboy/Documents/pdfs/'
-csvfile = folder + "statuses.csv"
+folder = '/Users/mrhusanboy/Documents/empty/'
+csvfile = current_dir / "statuses.csv"
 token = os.environ.get('BOT_TOKEN')
 admin_id = int(os.environ.get('ADMIN_ID'))
 channel_id = os.environ.get('CHANNEL_ID')
@@ -57,11 +57,20 @@ def sendDocument(chat_id, file, *, reply_id = None, message = None):
 def getDate(timestamp):
     return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
+
 def sendPdfsWithReply(folder):
+
     files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and f.endswith('.pdf')]
+
     if not files:
         sendMessage(admin_id, "No pdfs found.")
         return
+
+    fieldnames=["Pdf Title", "Size", "Status", "Date Sent"]
+    with open(csvfile, 'w', newline='') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(fieldnames)
+    
     
     sendMessage(admin_id, "Sending has started.")
 
@@ -88,21 +97,16 @@ def sendPdfsWithReply(folder):
             writer.writerow([f, f"{file_size:.1f} KiB", status, date_sent])
     
     sendDocument(admin_id, csvfile, message='Log file for the current operations')
-    
     os.remove(csvfile)
     
+    
 
 
-
+ 
 
 
 
 def run():
-    fieldnames=["Pdf Title", "Size", "Status", "Date Sent"]
-    with open(csvfile, 'w', newline='') as f:
-        writer = csv.writer(f, delimiter=';')
-        writer.writerow(fieldnames)
-    
     
     req = requests.get(url + '/getUpdates').json()
     offset = 0
@@ -121,7 +125,6 @@ def run():
 
                     if m['from']['id'] == admin_id and m['text'] == '/start':
                         sendPdfsWithReply(folder)
-                    offset = response['update_id'] + 1
-
+                offset = response['update_id'] + 1
 
 run()

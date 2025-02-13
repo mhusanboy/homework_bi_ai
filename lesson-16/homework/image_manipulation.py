@@ -30,9 +30,7 @@ def brighten_channels(image_loc, val):
     name_without_ext = image_loc[:-4]
     with Image.open(current_dir/image_loc) as img:
         img_arr = np.array(img)
-        shape = img_arr.shape
-        arr = [[[val] * shape[2]]*shape[1]]*shape[0]
-        brightened = np.clip(img_arr + arr, 0, 255).astype(np.uint8)
+        brightened = np.clip(img_arr + val, 0, 255).astype(np.uint8)
         save_file(brightened, name_without_ext+'_brightened')
 
 def apply_mask(image_loc):
@@ -52,5 +50,5 @@ img_file = 'images/birds.jpg'
 
 flip_image(img_file)
 add_random_noise(img_file)
-brighten_channels(img_file, 70)
+brighten_channels(img_file, 0)
 apply_mask(img_file)
